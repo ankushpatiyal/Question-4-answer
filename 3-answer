@@ -1,0 +1,8 @@
+The issue here is that we are not eager loading user table that can result in n+1 queries.
+
+Solution to the above issue: 
+—----------------------------------------------------------
+If mention table is only associated with message then we can simply query:
+Mention.joins(:user).where(user: {username: params[:username]})
+otherwise we can write it like this:
+Message.joins(mentions: :user).where("user.username = ?", params[:username])
