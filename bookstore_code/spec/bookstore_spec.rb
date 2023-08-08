@@ -1,5 +1,4 @@
-require './spec/rails_helper.rb'
-require "./app/models/bookstore.rb"
+require 'rspec'
 
 RSpec.describe Bookstore do
   let(:book1) { Book.new('dragon chronicles', 'Gian', 30) }
