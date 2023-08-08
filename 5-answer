@@ -1,0 +1,35 @@
+You have a model that needs to send data to a 3rd party API after it is saved. How
+would you accomplish this? (Please provide a code example.) What are the pros/cons of your approach?
+
+Ans: 
+In models i will write
+after_commit :send_data
+
+
+def send_data
+  TransferBusinessData.perform(data)
+end
+
+
+class TransferBusinessData < ApplicationJob
+  def perform(data)
+    Mekari.send_business_info(data)
+  end
+end
+
+
+In lib folder
+
+
+class Mekari
+  include HTTParty
+
+
+  def self.send_business_info(data)
+    post('url', body: data.to_json, headers:          {'Content-Type' => 'application/json'})
+  end
+end
+
+
+Pros: The request time of the action will decrease significantly if we follow this approach..
+cons: This approach is not good if the data needs to be synchronized at the current moment because this approach can have delays in sending data.
