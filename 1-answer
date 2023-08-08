@@ -1,0 +1,5 @@
+First I will use a profiler to find out the root cause of the slowness of the controller action.
+Second i will try these below steps:
+1. The data that we are fetching in this action can be the cause of the slowness. In that case I will try to optimize the query.
+2. Try to use cache anywhere possible.
+3. If there is anything that can be done even after action is rendered then i will try to run that code in Delayed job.
