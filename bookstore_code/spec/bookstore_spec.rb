@@ -1,4 +1,6 @@
 require 'rspec'
+require '../book.rb'
+require '../bookstore.rb'
 
 RSpec.describe Bookstore do
   let(:book1) { Book.new('dragon chronicles', 'Gian', 30) }
