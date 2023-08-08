@@ -1,0 +1,37 @@
+We will create a polymorphic association so that this comment model can be used with any numbers of models.
+
+
+class Comment < ApplicationRecord
+  belongs_to :commentable, polymorphic: true
+end
+
+
+
+
+class Author < ApplicationRecord
+  has_many :comments, as: :commentable
+end
+
+
+And can create a common view file:
+<% f.fields_for :comments do |comment_form| %>
+  <li>
+    <%= comment_form.label :content %>
+           <%= comment_form.text_area :content %>
+         </li>
+<% end %>
+
+
+And use it anywhere we like.
+
+
+And if there is any common model code in that case we can simply create a module or concern and use it any number of models:
+
+
+module Commentable
+end
+
+
+Pros: We don't have to rewrite the same functionality again and again, we can simply reuse it.
+
+Cons: The only con I can see is that whatever you do for one will be applied to all others.
